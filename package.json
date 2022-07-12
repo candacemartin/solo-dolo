@@ -1,0 +1,24 @@
+{
+  "name": "solo-dolo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/candacemartin/solo-dolo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/candacemartin/solo-dolo/issues"
+  },
+  "homepage": "https://github.com/candacemartin/solo-dolo#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
