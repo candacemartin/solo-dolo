@@ -15,10 +15,11 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-/*include this for serving frontend files:
-//handle requests for static files:
-app.use(express.static(path.resolve(__dirname, '../client')));
-*/
+//include this for serving frontend files:
+//handle requests for static html file:
+app.get('/', (req, res) => {
+  return res.status(200).sendFile(path.join(__dirname, '../index.html'));
+});
 
 //define route handlers:
 app.use('/api', apiRouter);
