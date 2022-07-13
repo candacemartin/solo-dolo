@@ -5,7 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: path.resolve(__dirname, 'client') + '/index.js',
   output: {
-    path: path.resolve(__dirname, './bundle'),
+    path: path.resolve(__dirname, './build'),
+    publicPath: '/',
     filename: 'bundle.js',
   },
   plugins: [
@@ -14,7 +15,7 @@ module.exports = {
       filename: 'index.html',
     }),
   ],
-  mode: 'production',
+  mode: process.env.NODE_ENV,
   module: {
     rules: [
       {
@@ -29,13 +30,13 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
-          "style-loader",
+          'style-loader',
           // Translates CSS into CommonJS
-          "css-loader",
+          'css-loader',
           // Compiles Sass to CSS
-          "sass-loader",
+          'sass-loader',
         ],
-      }
+      },
     ],
   },
 };

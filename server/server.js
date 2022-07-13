@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 //include this for serving frontend files:
 //handle requests for static html file:
 app.get('/', (req, res) => {
+  console.log('this is the index page', path.join(__dirname, '../index.html'));
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
