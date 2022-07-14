@@ -22,6 +22,11 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
+// app.post('/', (req, res) => {
+//   console.log('this is body of post req', req.body);
+//   return res.status(200).send('successful post request');
+// })
+
 //define route handlers:
 app.use('/api', apiRouter);
 

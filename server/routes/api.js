@@ -13,10 +13,16 @@ const router = express.Router();
 router.get('/', (req, res) => res.status(200).send('candace did a GET!'));
 
 //route handler for POST requests to /api/kinoko endpoint:
-router.post('/character',
-  kinokoController.addKinoko,
-  (req, res) => res.status(200).json({})
+router.post('/', (req, res) => {
+    console.log('this is body of post req', req.body);
+    return res.status(200).send('successful post request');
+  }
 );
+
+// app.post('/', (req, res) => {
+//   console.log('this is body of post req', req.body);
+//   return res.status(200).send('successful post request');
+// })
 
 
 //export router:
