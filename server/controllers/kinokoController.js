@@ -7,7 +7,7 @@ const db = require('../models/kinokoModel');
 const kinokoController = {};
 
 //kinokoController.getKinokos (insert get existing cards from db)
-//LEFT OFF HERE!!//
+
 
 //export controller:
 module.exports = kinokoController;

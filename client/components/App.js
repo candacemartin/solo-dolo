@@ -1,106 +1,127 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import Row from './Row';
-import GameList from './GameList';
-import Leaders from './Leaders';
+import { useState } from 'react';
+//import './scss/application.scss';
 
-let gameStore = [];
-
-function getInitialState() {
-  return {
-    rows: [
-      ['', '', ''],
-      ['', '', ''],
-      ['', '', ''],
-    ],
-    turn: 'X',
-    winner: undefined,
-    gameList: gameStore,
-  };
-}
-
-function checkWin(rows) {
-  const combos = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-  ];
-
-  const flattened = rows.reduce((acc, row) => acc.concat(row), []);
-
-  return combos.find(
-    (combo) =>
-      flattened[combo[0]] !== '' &&
-      flattened[combo[0]] === flattened[combo[1]] &&
-      flattened[combo[1]] === flattened[combo[2]]
+function FilterableShroomTable({ shrooms }) {
+  return (
+    <div>
+      <div>
+       <SearchBar />
+      </div>
+      <div className='board'>
+        <ShroomTable shrooms={shrooms} />
+      </div>
+    </div>
+    
   );
 }
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.state = getInitialState();
-  }
-
-  handleClick(row, square) {
-    let { turn, winner } = this.state;
-    const { rows } = this.state;
-    const squareInQuestion = rows[row][square];
-
-    if (this.state.winner) return;
-    if (squareInQuestion) return;
-
-    rows[row][square] = turn;
-    turn = turn === 'X' ? 'O' : 'X';
-    winner = checkWin(rows);
-
-    this.setState({
-      rows,
-      turn,
-      winner,
-    });
-  }
-
-  render() {
-    const { rows, turn, winner, gameList } = this.state;
-    const handleClick = this.handleClick;
-
-    const rowElements = rows.map((letters, i) => (
-      <Row key={i} row={i} letters={letters} handleClick={handleClick} />
-    ));
-
-    let infoDiv;
-    if (winner) {
-      let winTurn = turn === 'X' ? 'O' : 'X';
-      infoDiv = (
-        <div>
-          <div>
-            Player {winTurn} wins with squares {winner.join(', ')}!
-          </div>
-        </div>
-      );
-    } else {
-      infoDiv = <div>Turn: {turn}</div>;
-    }
-
-    return (
-      <div>
-        {infoDiv}
-        <div id='board'>{rowElements}</div>
-        <button id='reset' onClick={() => this.setState(getInitialState())}>
-          Reset board
-        </button>
-        <GameList gameList={gameList} />
-        <Leaders />
-      </div>
-    );
-  }
+function ShroomCategoryRow({ category }) {
+  return (
+    <tr>
+      <th colSpan='2'>{category}</th>
+    </tr>
+  );
 }
 
-export default App;
+function ShroomRow({ shroom }) {
+  const name = 
+    <div >
+      {shroom.name}
+    </div>;
+  return (
+    <tr>
+      <td>{name}</td>
+      <td>{shroom.benefits}</td>
+    </tr>
+  );
+}
+
+function ShroomTable({ shrooms }) {
+  const rows = [];
+  let lastCategory = null;
+
+  shrooms.forEach((shroom) => {
+    if (shroom.category !== lastCategory) {
+      rows.push(
+        <ShroomCategoryRow category={shroom.category} key={shroom.category} />
+      );
+    }
+    rows.push(<ShroomRow shroom={shroom} key={shroom.name} />);
+    lastCategory = shroom.category;
+  });
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>name</th>
+          <th>benefits</th>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </table>
+  );
+}
+
+function SearchBar() {
+  return (
+    <form>
+      <input
+        type='text'
+        //value={filterText}
+        placeholder='Search...'
+      />
+      <label>
+        <input
+          type='checkbox'
+          //checked={inStockOnly}
+        />{' '}
+        only show shrooms with images
+      </label>
+    </form>
+  );
+}
+
+const SHROOMS = [
+  {
+    category: 'non-psychedelic',
+    benefits: ['test', 'test'],
+    image: [],
+    name: 'maitake',
+  },
+  {
+    category: 'non-psychedelic',
+    benefits: ['test', 'test'],
+    image: [],
+    name: "lion's mane",
+  },
+  {
+    category: 'non-psychedelic',
+    benefits: ['test', 'test'],
+    image: [],
+    name: 'cordyceps',
+  },
+  {
+    category: 'psychedelic',
+    benefits: ['test', 'test'],
+    image: ['client/images/golden_teachers.jpeg'],
+    name: 'golden teacher',
+  },
+  {
+    category: 'psychedelic',
+    benefits: ['test', 'test'],
+    image: [],
+    name: 'liberty caps',
+  },
+  {
+    category: 'psychedelic',
+    benefits: ['test', 'test'],
+    image: [],
+    name: 'B+',
+  },
+];
+
+export default function App() {
+  return <FilterableShroomTable shrooms={SHROOMS} />;
+}
