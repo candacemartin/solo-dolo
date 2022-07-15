@@ -15,7 +15,7 @@ router.get('/', (req, res) => res.status(200).send('candace did a GET!'));
 //route handler for POST requests to /api/kinoko endpoint:
 router.post('/', (req, res) => {
     console.log('this is body of post req', req.body);
-    return res.status(200).send('successful post request');
+    return res.status(200).send('candace did a successful post request');
   }
 );
 

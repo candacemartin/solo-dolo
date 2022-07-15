@@ -52,7 +52,7 @@ function Solution() {
 function TechnicalChallengeOne() {
   return (
     <button style={ {background: 'cadetblue'} } onClick={() => {
-      console.log('WEBPACK CONFIG, of course.')
+      console.log('^^WEBPACK CONFIG^^, of course.')
       return(
         <div>
           <NewCardOne />
@@ -146,7 +146,7 @@ function Button(){
           <NewCardOne />
         </div>
       )
-    }}>Grow Something New! (won't add anything yet tho)</button>
+    }}>Grow Something New!</button>
   );
 }
 
